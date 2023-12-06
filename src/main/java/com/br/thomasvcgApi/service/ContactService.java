@@ -35,7 +35,7 @@ public class ContactService {
             contact.setCostumer(costumer);
             contactRepository.save(contact);
 
-            return new ContactResponse("Customer created successfully");
+            return new ContactResponse("Contact created successfully");
         }catch (Exception ex){
             throw new HandlerError(ex.getMessage());
         }
@@ -69,7 +69,7 @@ public class ContactService {
 
     public ContactResponse findById(Long idContact){
         Contact contact = contactRepository.findById(idContact)
-                .orElseThrow(()-> new HandlerEntityNotFoundException("Costumer not found whith id" + idContact));
+                .orElseThrow(()-> new HandlerEntityNotFoundException("Contact not found whith id" + idContact));
         var costumer = contact.getCostumer();
         CostumerDTO costumerDTO = CostumerDTO.builder()
                 .id(costumer.getId())
@@ -85,7 +85,7 @@ public class ContactService {
     }
     public ContactResponse update(ContactRequest contactRequest,Long idContact){
         Contact contact = contactRepository.findById(idContact)
-                .orElseThrow(()-> new HandlerEntityNotFoundException("Costumer not found whith id" + idContact));
+                .orElseThrow(()-> new HandlerEntityNotFoundException("Contact not found whith id" + idContact));
         Costumer costumer = costumerRepository.findById(contactRequest.costumer().id())
                 .orElseThrow(()-> new HandlerEntityNotFoundException("Costumer not found whith id" + contactRequest.costumer()));
         try {
@@ -94,7 +94,7 @@ public class ContactService {
             contact.setCostumer(costumer);
             contactRepository.save(contact);
 
-            return new ContactResponse("Customer update successfully");
+            return new ContactResponse("Contact update successfully");
         }catch (Exception ex){
             throw new HandlerError(ex.getMessage());
         }
@@ -102,7 +102,7 @@ public class ContactService {
     public ContactResponse deleteContact(Long idContact){
         try {
             contactRepository.deleteById(idContact);
-            return new ContactResponse("Customer delete successfully");
+            return new ContactResponse("Contact delete successfully");
         }catch (Exception ex){
             throw new HandlerError(ex.getMessage());
         }

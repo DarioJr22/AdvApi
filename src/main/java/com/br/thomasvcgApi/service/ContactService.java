@@ -83,11 +83,12 @@ public class ContactService {
                 .costumer(costumerDTO)
                 .build());
     }
-    public ContactResponse update(ContactRequest contactRequest){
-        Costumer costumer = costumerRepository.findById(contactRequest.idCostumer())
-                .orElseThrow(()-> new HandlerEntityNotFoundException("Costumer not found whith id" + contactRequest.idCostumer()));
+    public ContactResponse update(ContactRequest contactRequest,Long idContact){
+        Contact contact = contactRepository.findById(idContact)
+                .orElseThrow(()-> new HandlerEntityNotFoundException("Costumer not found whith id" + idContact));
+        Costumer costumer = costumerRepository.findById(contactRequest.costumer().id())
+                .orElseThrow(()-> new HandlerEntityNotFoundException("Costumer not found whith id" + contactRequest.costumer()));
         try {
-            Contact contact = new Contact();
             contact.setContactContent(contactRequest.contact_content());
             contact.setArqContent(contactRequest.arq_content());
             contact.setCostumer(costumer);

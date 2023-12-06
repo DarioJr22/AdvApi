@@ -58,8 +58,6 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
         log.error("some error was found in the api");
         return buildResponseError(ex.getMessage(),"API error",HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-
     private static void logError(Exception ex){
         log.error(ex.getClass().getName(), ex);
         log.error(ex.getClass().getName(), ex.getMessage());

@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -35,7 +35,7 @@ public class Costumer {
     private String contact;
 
     @Column(name = "birthday")
-    private Date birtday;
+    private LocalDate birtday;
 
     @Column(name = "rg")
     private String rg;

@@ -33,8 +33,8 @@ public class ContactController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     @PutMapping(value = "/{idContact}")
-    public ResponseEntity<ContactResponse> update(@RequestBody ContactRequest contactList){
-        ContactResponse response = contactService.update(contactList);
+    public ResponseEntity<ContactResponse> update(@RequestBody ContactRequest contactRequest,@PathVariable Long idContact){
+        ContactResponse response = contactService.update(contactRequest,idContact);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     @DeleteMapping(value = "/{idContact}")

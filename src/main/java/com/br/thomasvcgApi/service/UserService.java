@@ -1,11 +1,9 @@
 package com.br.thomasvcgApi.service;
 
 
-import com.br.thomasvcgApi.domain.dto.request.UserDTO;
-import com.br.thomasvcgApi.domain.entity.Post;
+import com.br.thomasvcgApi.rest.request.UserRequest;
 import com.br.thomasvcgApi.domain.entity.User;
-import com.br.thomasvcgApi.repository.PostRepository;
-import com.br.thomasvcgApi.repository.UserRepository;
+import com.br.thomasvcgApi.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,29 +13,28 @@ import java.util.Optional;
 @Service
 public class UserService {
     @Autowired
-    UserRepository repository;
+    UserRepository userRepository;
 
-    public User save(User c){
-        return  repository.save(c);
+    public User save(UserRequest userRequest){
+        User user = new User();
+        user.setLogin(userRequest.login());
+        user.setPassword(userRequest.password());
+        user.setEmail(userRequest.email());
+        return  userRepository.save(user);
     }
-
-    public List<User> saveAll(List<User> cl){
-        return repository.saveAll(cl);
-    }
-
     public List<User> getAll(){
-        return repository.findAll();
+        return userRepository.findAll();
     }
 
     public Optional<User> findById(Long id){
-        return repository.findById(id);
+        return userRepository.findById(id);
     }
 
     public void delete(Long cd) {
-        repository.deleteById(cd);
+        userRepository.deleteById(cd);
     }
     public User update(User c){
-        return repository.save(c);
+        return userRepository.save(c);
     }
 
 }

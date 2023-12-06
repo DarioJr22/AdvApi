@@ -1,4 +1,4 @@
-package com.br.thomasvcgApi.repository;
+package com.br.thomasvcgApi.domain.repository;
 
 import com.br.thomasvcgApi.domain.entity.Contact;
 import org.springframework.data.jpa.repository.JpaRepository;

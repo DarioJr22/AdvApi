@@ -14,19 +14,18 @@ import lombok.NoArgsConstructor;
 public class Contact  {
 
     @Id
-    @Column
+    @Column(name = "id_contact")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String contact_content;
+    @Column(name = "contact_Content")
+    private String contactContent;
 
-    @Column
-    private String arq_content;
+    @Column(name = "arq_content")
+    private String arqContent;
 
     @ManyToOne
-    @JoinColumn(name = "client_id",nullable = false)
-    private Costumer client_id;
-
+    @JoinColumn(name = "id_costumer",nullable = false)
+    private Costumer costumer;
 
 }

@@ -1,11 +1,11 @@
 package com.br.thomasvcgApi.domain.entity;
 
+import com.br.thomasvcgApi.util.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,14 +14,17 @@ TODO Verificar a possibilidade dessa tabela ter uma instância fire base
 TODO Fazer relacionamentos exter
 
  */
-
-
+@Entity
+@Table(name="user")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_seq")
-    @Column(name = "cd_user",unique = true,nullable = false)
-    private Long id_user;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user",unique = true,nullable = false)
+    private Long id;
 
     @Column(name="login",nullable = false)
     private String login;
@@ -32,9 +35,13 @@ public class User {
     @Column(name="email",length = 120)
     private String email;
 
-    @OneToMany(mappedBy = "user_id")
-    private List<Post> postList = new ArrayList<Post>();
+    @Column(name="role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    @OneToMany(mappedBy ="user_id")
-    private List<Costumer>  costumerList = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
+
+    @OneToMany(mappedBy ="user")
+    private List<Costumer>  costumers;
 }

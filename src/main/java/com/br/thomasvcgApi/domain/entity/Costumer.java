@@ -3,13 +3,10 @@ package com.br.thomasvcgApi.domain.entity;
 
 import com.br.thomasvcgApi.util.Relationship;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,17 +15,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
 public class Costumer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private Long id_costumer;
+    @Column(name="id_costumer")
+    private Long id;
 
     @Column(name="costumer_name",nullable = false)
-    private String costumer_name;
+    private String costumerName;
 
-
+    @Column(name="relationship")
     @Enumerated(EnumType.STRING)
     private Relationship relationship;
 
@@ -41,25 +37,24 @@ public class Costumer {
     @Column(name = "birthday")
     private Date birtday;
 
-    @Column
+    @Column(name = "rg")
     private String rg;
 
-    @Column
+    @Column(name = "cpf")
     private String cpf;
 
-    @Embedded
-    private CostumerAddress adress;
+    @OneToOne
+    @JoinColumn(name = "id_address")
+    private CostumerAddress address;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user_id;
+    @JoinColumn(name="id_user")
+    private User user;
 
-    @OneToMany(mappedBy = "statement_id")
-    private List<Statement> statement_id = new ArrayList<>();
+    @OneToMany(mappedBy = "costumer")
+    private List<Statement> statements;
 
-    @OneToMany(mappedBy = "contact_id")
-    private List<Contact> contact_id = new ArrayList<>();
-
-
+    @OneToMany(mappedBy = "costumer")
+    private List<Contact> contacts;
 
 }

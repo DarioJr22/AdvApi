@@ -14,16 +14,16 @@ import lombok.NoArgsConstructor;
 public class Statement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_statement")
     private Long id;
 
     @Column(name="statement_content")
-    private String statement_content;
+    private String statementContent;
 
     @Column(name="arq_content")
-    private String arq_content;
+    private String arqContent;
 
     @ManyToOne
-    @JoinColumn(name = "costumer_id",nullable = false)
-    private Costumer costumer_id;
+    @JoinColumn(name = "id_costumer",nullable = false)
+    private Costumer costumer;
 }

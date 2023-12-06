@@ -1,7 +1,6 @@
 package com.br.thomasvcgApi.domain.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +25,7 @@ public class Post {
     @Id
     @Column(name="id_post")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_post;
+    private Long id;
 
     @Column(name = "title",nullable = false)
     private String title;
@@ -45,7 +44,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name="user_id",nullable = false)
-    private User user_id;
+    private User user;
 
 
 

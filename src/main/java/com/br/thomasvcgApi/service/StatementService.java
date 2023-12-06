@@ -1,9 +1,7 @@
 package com.br.thomasvcgApi.service;
 
-import com.br.thomasvcgApi.domain.entity.Post;
 import com.br.thomasvcgApi.domain.entity.Statement;
-import com.br.thomasvcgApi.repository.PostRepository;
-import com.br.thomasvcgApi.repository.StatementRepository;
+import com.br.thomasvcgApi.domain.repository.StatementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

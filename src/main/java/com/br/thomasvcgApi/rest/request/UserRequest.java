@@ -1,6 +1,6 @@
-package com.br.thomasvcgApi.domain.dto.request;
+package com.br.thomasvcgApi.rest.request;
 
-public record UserDTO(
+public record UserRequest(
         String login,
         String password,
         String email

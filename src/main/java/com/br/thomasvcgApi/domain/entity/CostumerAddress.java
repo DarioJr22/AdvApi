@@ -1,48 +1,34 @@
 package com.br.thomasvcgApi.domain.entity;
 
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Embeddable
-@Getter
+@Entity
+@Table(name="costumerAddress")
+@AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class CostumerAddress {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_costumerAddress")
+    private Long id;
+    @Column(name = "street")
     private String street;
-
+    @Column(name = "district")
     private String district;
-
+    @Column(name = "cep")
     private String cep;
-
-    private Integer numero;
-
+    @Column(name = "number")
+    private int number;
+    @Column(name = "complement")
     private String complement;
-
-    private String cidade;
-
+    @Column(name = "city")
+    private String city;
+    @Column(name = "uf")
     private String uf;
-
-
-    public CostumerAddress(
-            String street,
-            String district,
-            String cep,
-            Integer numero,
-            String complement,
-            String cidade,
-            String uf) {
-        this.street = street;
-        this.district = district;
-        this.cep = cep;
-        this.numero = numero;
-        this.complement = complement;
-        this.cidade = cidade;
-        this.uf = uf;
-    }
 }

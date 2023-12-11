@@ -13,7 +13,7 @@ public record CostumerDTO(
             String email,
             String contact,
             @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
-            LocalDate birtday,
+            LocalDate birthday,
             String rg,
             String cpf,
             CostumerAddressDTO address,

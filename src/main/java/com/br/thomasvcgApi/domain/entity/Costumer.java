@@ -35,7 +35,7 @@ public class Costumer {
     private String contact;
 
     @Column(name = "birthday")
-    private LocalDate birtday;
+    private LocalDate birthday;
 
     @Column(name = "rg")
     private String rg;

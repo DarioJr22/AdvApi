@@ -11,7 +11,7 @@ public record CostumerRequest(
        Relationship relationship,
        String email,
        String contact,
-       LocalDate birtday,
+       LocalDate birthday,
        String rg,
        String cpf,
        CostumerAddressDTO address,

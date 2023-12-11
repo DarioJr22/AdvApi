@@ -27,7 +27,7 @@ public class ContactService {
 
     public ContactResponse createContact(ContactRequest contactRequest, Long idCostumer){
         Costumer costumer = costumerRepository.findById(idCostumer)
-                .orElseThrow(() -> new HandlerEntityNotFoundException("Costumer not found whith id" + idCostumer));
+                .orElseThrow(() -> new HandlerEntityNotFoundException("Costumer not found with id" + idCostumer));
         try {
             Contact contact = new Contact();
             contact.setContactContent(contactRequest.contact_content());
@@ -69,7 +69,7 @@ public class ContactService {
 
     public ContactResponse findById(Long idContact){
         Contact contact = contactRepository.findById(idContact)
-                .orElseThrow(()-> new HandlerEntityNotFoundException("Contact not found whith id" + idContact));
+                .orElseThrow(()-> new HandlerEntityNotFoundException("Contact not found with id" + idContact));
         var costumer = contact.getCostumer();
         CostumerDTO costumerDTO = CostumerDTO.builder()
                 .id(costumer.getId())
@@ -85,9 +85,9 @@ public class ContactService {
     }
     public ContactResponse update(ContactRequest contactRequest,Long idContact){
         Contact contact = contactRepository.findById(idContact)
-                .orElseThrow(()-> new HandlerEntityNotFoundException("Contact not found whith id" + idContact));
+                .orElseThrow(()-> new HandlerEntityNotFoundException("Contact not found with id" + idContact));
         Costumer costumer = costumerRepository.findById(contactRequest.costumer().id())
-                .orElseThrow(()-> new HandlerEntityNotFoundException("Costumer not found whith id" + contactRequest.costumer()));
+                .orElseThrow(()-> new HandlerEntityNotFoundException("Costumer not found with id" + contactRequest.costumer()));
         try {
             contact.setContactContent(contactRequest.contact_content());
             contact.setArqContent(contactRequest.arq_content());

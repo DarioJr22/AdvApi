@@ -1,14 +1,16 @@
 package com.br.thomasvcgApi.rest.request;
 
-import java.util.Date;
+import com.br.thomasvcgApi.domain.entity.User;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public record PostRequest(
         String title,
-        String subtitulo,
-        Date date,
+        String subtitle,
+        LocalDate date,
         List<String> tags,
         String content,
-        Long idUser
+        User user
 ) {
 }

@@ -6,13 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /*
 TODO Como manipular dados no JAVa ?
 TODO Como manipular tags no java  ?
 TODO Como acumular dados de posts ?
+TODO CRIAR A CLASS FILEtXT NO LUGAR DO CONTEUDO
  */
 
 @Entity
@@ -31,24 +32,20 @@ public class Post {
     private String title;
 
     @Column(name = "subtitle",nullable = false)
-    private String subtitulo;
+    private String subtitle;
 
     @Column(name = "post_date",nullable = false)
-    private Date date;
+    private LocalDate date;
 
-    @Column(name="tags")
+    @ElementCollection
+    @CollectionTable(name = "post_tags",joinColumns = @JoinColumn(name = "id_post"))
     private List<String> tags;
 
-    @Column(name="article_content")
+    @Lob
+    @Column(name="content_base64",columnDefinition = "LONGTEXT")
     private String content;
 
     @ManyToOne
     @JoinColumn(name="user_id",nullable = false)
     private User user;
-
-
-
-
-
-
 }

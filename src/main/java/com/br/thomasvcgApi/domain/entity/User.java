@@ -12,7 +12,6 @@ import java.util.List;
 /*
 TODO Verificar a possibilidade dessa tabela ter uma instância fire base
 TODO Fazer relacionamentos exter
-
  */
 @Entity
 @Table(name="user")

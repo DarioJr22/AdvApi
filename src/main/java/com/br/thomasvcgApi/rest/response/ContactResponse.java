@@ -1,6 +1,7 @@
 package com.br.thomasvcgApi.rest.response;
 
 import com.br.thomasvcgApi.domain.dto.ContactDTO;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContactResponse {
     private ContactDTO contactDTO;
 

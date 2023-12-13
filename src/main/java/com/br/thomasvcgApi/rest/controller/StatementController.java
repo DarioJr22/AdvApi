@@ -24,7 +24,7 @@ public class StatementController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StatementResponse>> getAllStatement() {
+    public ResponseEntity<List<StatementResponse>> getAllStatements() {
         List<StatementResponse> statementResponses = statementService.getAllStatement();
         return ResponseEntity.status(HttpStatus.OK).body(statementResponses);
     }

@@ -23,6 +23,15 @@ public class Statement {
     @Column(name="arq_content")
     private String arqContent;
 
+    @Column(name="statement_description")
+    private String statementDescription;
+
+    @Column(name="statement_amount")
+    private Double statementAmount;
+
+    @Column(name="statement_date")
+    private LocalDate statementDate;
+
     @ManyToOne
     @JoinColumn(name = "id_costumer",nullable = false)
     private Costumer costumer;

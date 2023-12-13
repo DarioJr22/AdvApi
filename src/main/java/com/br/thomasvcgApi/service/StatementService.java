@@ -32,13 +32,16 @@ public class StatementService {
                 .orElseThrow(()->new HandlerEntityNotFoundException("Costumer not found with id" + idCostumer));
         Statement statement = new Statement();
         statement.setStatementContent(statementRequest.statementContent());
+        statement.setStatementDescription(statementRequest.statementDescription());
+        statement.setStatementAmount(statementRequest.statementAmount());
         statement.setArqContent(statementRequest.arqContent());
+        statement.setDate(LocalDate.now());
         statement.setCostumer(costumer);
         statementRepository.save(statement);
 
         return new StatementResponse("Statement created successfully!");
     }
-    public List<StatementResponse> getAllStatement(){
+    public List<StatementResponse> getAllStatements(){
 
         List<Statement> statements = statementRepository.findAll();
         List<StatementResponse> responses = new ArrayList<>();
@@ -55,7 +58,10 @@ public class StatementService {
                 StatementDTO statementDTO = StatementDTO.builder()
                         .id(statement.getId())
                         .statementContent(statement.getStatementContent())
+                        .statementDescription(statement.getStatementDescription())
+                        .statementAmount(statement.getStatementAmount())
                         .arqContent(statement.getArqContent())
+                        .statementDate(statement.getStatementDate())
                         .costumer(costumerDTO)
                         .build();
                 StatementResponse response = new StatementResponse();
@@ -85,6 +91,9 @@ public class StatementService {
                     .arqContent(statement.getArqContent())
                     .statementContent(statement.getStatementContent())
                     .id(statement.getId())
+                    .statementDescription(statement.getStatementDescription())
+                    .statementAmount(statement.getStatementAmount())
+                    .statementDate(statement.getStatementDate())
                     .costumer(costumerDTO)
                     .build());
         } catch (Exception ex){
@@ -97,6 +106,8 @@ public class StatementService {
                 .orElseThrow(()->new HandlerEntityNotFoundException("Statement not found with id" + idStatement));
         statement.setArqContent(statementRequest.arqContent());
         statement.setStatementContent(statementRequest.statementContent());
+        statement.setStatementDescription(statementRequest.statementDescription());
+        statement.setStatementAmount(statementRequest.statementAmount());
         statementRepository.save(statement);
 
         return new StatementResponse("Updated Successfully");

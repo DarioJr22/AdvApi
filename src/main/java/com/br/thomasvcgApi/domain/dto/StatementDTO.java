@@ -9,6 +9,10 @@ public record StatementDTO (
         Long id,
         String statementContent,
         String arqContent,
+        String statementDescription,
+        Double statementAmount,
+        @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
+        LocalDate statementDate
         CostumerDTO costumer
 ){
 }

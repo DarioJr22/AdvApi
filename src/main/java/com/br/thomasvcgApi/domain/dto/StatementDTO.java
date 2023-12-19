@@ -12,7 +12,7 @@ public record StatementDTO (
         String statementDescription,
         Double statementAmount,
         @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
-        LocalDate statementDate
+        LocalDate statementDate,
         CostumerDTO costumer
 ){
 }

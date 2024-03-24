@@ -33,7 +33,7 @@ public class ContactService {
             contact.setContactContent(contactRequest.contact_content());
             contact.setArqContent(contactRequest.arq_content());
             contact.setCostumer(costumer);
-            contactRepository.save(contact);
+           Contact contactResp = contactRepository.save(contact);
 
             return new ContactResponse("Contact created successfully");
         }catch (Exception ex){

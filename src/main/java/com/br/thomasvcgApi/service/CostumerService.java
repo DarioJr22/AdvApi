@@ -30,8 +30,7 @@ public class CostumerService {
     private CostumerAddressRepository costumerAddressRepository;
 
     public CostumerResponse createCostumer(CostumerRequest costumerRequest, Long idUser){
-        User user = userRepository.findById(idUser)
-                .orElseThrow(() -> new HandlerEntityNotFoundException("Costumer not found with id" + idUser));
+        User user = userRepository.findById(idUser).orElseThrow(() -> new HandlerEntityNotFoundException("Costumer not found with id" + idUser));
         try {
             var addressRequest = costumerRequest.address();
             CostumerAddress address = new CostumerAddress();
@@ -54,9 +53,11 @@ public class CostumerService {
             costumer.setEmail(costumerRequest.email());
             costumer.setRelationship(costumerRequest.relationship());
             costumer.setUser(user);
-            costumerRepository.save(costumer);
+           Costumer costumerResp =  costumerRepository.save(costumer);
+
+
             
-            return new CostumerResponse("Costumer created successfully");
+            return new CostumerResponse("Costumer created successfully", costumerResp);
         }catch (Exception ex){
             throw new HandlerError(ex.getMessage());
         }
@@ -120,7 +121,7 @@ public class CostumerService {
                     .uf(address.getUf())
                     .build();
             UserDTO userDTO = UserDTO.builder()
-                    .id(user.getId())
+
                     .login(user.getLogin())
                     .email(user.getEmail())
                     .password(user.getPassword())
@@ -169,9 +170,11 @@ public class CostumerService {
             costumer.setEmail(costumerRequest.email());
             costumer.setRelationship(costumerRequest.relationship());
             costumer.setUser(user);
-            costumerRepository.save(costumer);
+            Costumer costumerResp =  costumerRepository.save(costumer);
 
-            return new CostumerResponse("Costumer update successfully");
+
+
+            return new CostumerResponse("Costumer created successfully", costumerResp);
         }catch (Exception ex){
             throw new HandlerError(ex.getMessage());
         }
@@ -182,7 +185,7 @@ public class CostumerService {
                 .orElseThrow(() -> new HandlerEntityNotFoundException("Costumer not found with id" + idCostumer));
         try {
             costumerRepository.delete(costumer);
-            return new CostumerResponse("Costumer delete successfully");
+            return new CostumerResponse("Costumer delete successfully",costumer);
         }catch (Exception ex){
             throw new HandlerError(ex.getMessage());
         }

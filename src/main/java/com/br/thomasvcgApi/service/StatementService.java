@@ -33,9 +33,9 @@ public class StatementService {
         Statement statement = new Statement();
         statement.setStatementContent(statementRequest.statementContent());
         statement.setStatementDescription(statementRequest.statementDescription());
-        statement.setStatementAmount(statementRequest.statementAmount());
+     //   statement.setStatementAmount(statementRequest.statementAmount());
         statement.setArqContent(statementRequest.arqContent());
-        statement.setDate(LocalDate.now());
+       // statement.setDate(LocalDate.now());
         statement.setCostumer(costumer);
         statementRepository.save(statement);
 
@@ -107,7 +107,7 @@ public class StatementService {
         statement.setArqContent(statementRequest.arqContent());
         statement.setStatementContent(statementRequest.statementContent());
         statement.setStatementDescription(statementRequest.statementDescription());
-        statement.setStatementAmount(statementRequest.statementAmount());
+       // statement.setStatementAmount(statementRequest.statementAmount());
         statementRepository.save(statement);
 
         return new StatementResponse("Updated Successfully");

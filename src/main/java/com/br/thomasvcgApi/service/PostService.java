@@ -13,6 +13,7 @@ import com.br.thomasvcgApi.rest.response.PostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,15 +29,18 @@ public class PostService {
     private UserRepository userRepository;
 
     public PostResponse createPost(PostRequest postRequest){
-        User user = userRepository.findById(postRequest.user().getId())
-                .orElseThrow(()->new HandlerEntityNotFoundException("User not found with id" + postRequest.user().getId()));
+        //TODO - Fazer tratamento de usuário
+
+                //userRepository.findById(postRequest.user().getId())
+                //.orElseThrow(()->new HandlerEntityNotFoundException("User not found with id" + postRequest.user().getId()));
+        User user = new User();
         Post post = new Post();
         post.setTitle(postRequest.title());
         post.setDate(LocalDate.now());
         post.setSubtitle(postRequest.subtitle());
         post.setContent(convertBase64(postRequest.content()));
         post.setTags(postRequest.tags());
-        post.setUser(user);
+        post.setUser(postRequest.user());
         postRepository.save(post);
 
         return new PostResponse("Post created successfully");
@@ -52,7 +56,7 @@ public class PostService {
                     .date(post.getDate())
                     .title(post.getTitle())
                     .subtitle(post.getSubtitle())
-                    .content(post.getContent())
+                    .content(this.decodeBase64(post.getContent()))
                     .tags(post.getTags())
                     .build();
             PostResponse response = new PostResponse();
@@ -100,5 +104,10 @@ public class PostService {
             throw new HandlerError(ex.getMessage());
         }
 
+    }
+
+    private String decodeBase64(String content){
+        byte[] decodedBytes = Base64.getDecoder().decode(content);
+        return new String(decodedBytes,StandardCharsets.UTF_8);
     }
 }

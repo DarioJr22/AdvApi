@@ -3,6 +3,7 @@ package com.br.thomasvcgApi.rest.controller;
 
 import com.br.thomasvcgApi.rest.request.UserRequest;
 import com.br.thomasvcgApi.rest.response.UserResponse;
+import com.br.thomasvcgApi.service.ReviewsService;
 import com.br.thomasvcgApi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService service;
+
+    @Autowired
+    private ReviewsService revService;
 
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest){
@@ -45,5 +49,11 @@ public class UserController {
     public ResponseEntity<UserResponse> deleteUser(@PathVariable Long idUser) {
         UserResponse response = service.deleteUser(idUser);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping(value = "/reviews")
+    public ResponseEntity<Object> getReviews(){
+     Object response = revService.getGoogleProfile();
+     return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

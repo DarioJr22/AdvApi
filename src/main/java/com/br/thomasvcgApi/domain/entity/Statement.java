@@ -1,9 +1,12 @@
 package com.br.thomasvcgApi.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 
 @Entity
@@ -32,6 +35,7 @@ public class Statement {
     @Column(name="statement_date")
     private LocalDate statementDate;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_costumer",nullable = false)
     private Costumer costumer;

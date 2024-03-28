@@ -4,6 +4,7 @@ package com.br.thomasvcgApi.domain.entity;
 import com.br.thomasvcgApi.domain.dto.CostumerDTO;
 import com.br.thomasvcgApi.rest.request.CostumerRequest;
 import com.br.thomasvcgApi.util.Relationship;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -54,9 +55,11 @@ public class Costumer {
     @JoinColumn(name="id_user")
     private User user;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "costumer")
     private List<Statement> statements;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "costumer")
     private List<Contact> contacts;
 

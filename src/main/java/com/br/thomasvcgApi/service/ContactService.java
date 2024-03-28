@@ -41,7 +41,7 @@ public class ContactService {
             contact.setContactContent(convertBase64(contactRequest.contactContent()));
             contact.setArqContent(contactRequest.arq_content());
             contact.setCostumer(costumer);
-            contactRepository.save(contact);
+           Contact contactResp = contactRepository.save(contact);
 
             sendMail.sendHtmlEmail(contact,fromEmail);
 

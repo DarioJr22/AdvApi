@@ -1,6 +1,7 @@
 package com.br.thomasvcgApi.domain.entity;
 
 import com.br.thomasvcgApi.util.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,9 +39,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
+    @JsonIgnore
     @OneToMany(mappedBy ="user")
     private List<Costumer>  costumers;
 }

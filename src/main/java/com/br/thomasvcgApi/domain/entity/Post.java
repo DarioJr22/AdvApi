@@ -38,7 +38,7 @@ public class Post {
     private LocalDate date;
 
     @ElementCollection
-    @CollectionTable(name = "post_tags",joinColumns = @JoinColumn(name = "id_post"))
+    @CollectionTable(name = "post_tags",joinColumns = @JoinColumn(name = "id_post",nullable = true))
     private List<String> tags;
 
     @Lob

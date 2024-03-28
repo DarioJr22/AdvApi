@@ -18,7 +18,8 @@ public class Contact  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "contact_Content")
+    @Lob
+    @Column(name = "contact_Content",columnDefinition = "LONGTEXT")
     private String contactContent;
 
     @Column(name = "arq_content")

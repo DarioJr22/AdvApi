@@ -12,9 +12,12 @@ import com.br.thomasvcgApi.exception.handler.HandlerError;
 import com.br.thomasvcgApi.rest.request.ContactRequest;
 import com.br.thomasvcgApi.rest.response.ContactResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -24,16 +27,23 @@ public class ContactService {
     private ContactRepository contactRepository;
     @Autowired
     private CostumerRepository costumerRepository;
+    @Autowired
+    private SendMail sendMail;
+
+    @Value("${spring.mail.username}")
+    private String fromEmail;
 
     public ContactResponse createContact(ContactRequest contactRequest, Long idCostumer){
         Costumer costumer = costumerRepository.findById(idCostumer)
                 .orElseThrow(() -> new HandlerEntityNotFoundException("Costumer not found with id" + idCostumer));
         try {
             Contact contact = new Contact();
-            contact.setContactContent(contactRequest.contact_content());
+            contact.setContactContent(convertBase64(contactRequest.contactContent()));
             contact.setArqContent(contactRequest.arq_content());
             contact.setCostumer(costumer);
             contactRepository.save(contact);
+
+            sendMail.sendHtmlEmail(contact,fromEmail);
 
             return new ContactResponse("Contact created successfully");
         }catch (Exception ex){
@@ -89,7 +99,7 @@ public class ContactService {
         Costumer costumer = costumerRepository.findById(contactRequest.costumer().id())
                 .orElseThrow(()-> new HandlerEntityNotFoundException("Costumer not found with id" + contactRequest.costumer()));
         try {
-            contact.setContactContent(contactRequest.contact_content());
+            contact.setContactContent(contactRequest.contactContent());
             contact.setArqContent(contactRequest.arq_content());
             contact.setCostumer(costumer);
             contactRepository.save(contact);
@@ -108,6 +118,15 @@ public class ContactService {
         }
 
     }
+    private String convertBase64(String content){
+        try {
+            byte[] contentBytes = content.getBytes(StandardCharsets.UTF_8);
+            byte[] base64Encoded = Base64.getEncoder().encode(contentBytes);
+            return new String(base64Encoded,StandardCharsets.UTF_8);
+        }catch (Exception ex){
+            throw new HandlerError(ex.getMessage());
+        }
 
+    }
 
 }

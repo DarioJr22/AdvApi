@@ -33,26 +33,12 @@ public class CostumerService {
         User user = userRepository.findById(idUser)
                 .orElseThrow(() -> new HandlerEntityNotFoundException("Costumer not found with id" + idUser));
         try {
-            var addressRequest = costumerRequest.address();
-            CostumerAddress address = new CostumerAddress();
-            address.setCep(addressRequest.cep());
-            address.setUf(addressRequest.uf());
-            address.setCity(addressRequest.city());
-            address.setDistrict(addressRequest.district());
-            address.setNumber(addressRequest.number());
-            address.setComplement(addressRequest.complement());
-            address.setStreet(addressRequest.street());
+
+            CostumerAddress address = new CostumerAddress(costumerRequest);
             costumerAddressRepository.save(address);
 
-            Costumer costumer = new Costumer();
-            costumer.setCostumerName(costumerRequest.costumerName());
-            costumer.setRg(costumerRequest.rg());
-            costumer.setCpf(costumerRequest.cpf());
-            costumer.setContact(costumerRequest.contact());
-            costumer.setBirthday(costumerRequest.birthday());
+            Costumer costumer = new Costumer(costumerRequest);
             costumer.setAddress(address);
-            costumer.setEmail(costumerRequest.email());
-            costumer.setRelationship(costumerRequest.relationship());
             costumer.setUser(user);
             costumerRepository.save(costumer);
             
@@ -66,18 +52,9 @@ public class CostumerService {
         List<CostumerResponse> responses = new ArrayList<>();
         try {
             costumers.parallelStream().forEach(costumer -> {
-                var address = costumer.getAddress();
                 var user = costumer.getUser();
-                CostumerAddressDTO addressDTO = CostumerAddressDTO.builder()
-                        .id(address.getId())
-                        .cep(address.getCep())
-                        .city(address.getCity())
-                        .complement(address.getComplement())
-                        .district(address.getDistrict())
-                        .number(address.getNumber())
-                        .street(address.getStreet())
-                        .uf(address.getUf())
-                        .build();
+                CostumerAddressDTO addressDTO = new CostumerAddressDTO(costumer);
+
                 UserDTO userDTO = UserDTO.builder()
                         .login(user.getLogin())
                         .email(user.getEmail())
@@ -107,18 +84,10 @@ public class CostumerService {
         Costumer costumer = costumerRepository.findById(idCostumer)
                 .orElseThrow(() -> new HandlerEntityNotFoundException("Costumer not found with id" + idCostumer));
         try {
-            var address = costumer.getAddress();
+
             var user = costumer.getUser();
-            CostumerAddressDTO addressDTO = CostumerAddressDTO.builder()
-                    .id(address.getId())
-                    .cep(address.getCep())
-                    .city(address.getCity())
-                    .complement(address.getComplement())
-                    .district(address.getDistrict())
-                    .number(address.getNumber())
-                    .street(address.getStreet())
-                    .uf(address.getUf())
-                    .build();
+            CostumerAddressDTO addressDTO = new CostumerAddressDTO(costumer);
+
             UserDTO userDTO = UserDTO.builder()
                     .id(user.getId())
                     .login(user.getLogin())
@@ -146,29 +115,26 @@ public class CostumerService {
         Costumer costumer = costumerRepository.findById(idCostumer)
                 .orElseThrow(() -> new HandlerEntityNotFoundException("Costumer not found with id" + idCostumer));
 
-        User user = userRepository.findById(costumerRequest.user().getId())
-                .orElseThrow(() -> new HandlerEntityNotFoundException("Costumer not found with id" + costumerRequest.user().getId()));
         try {
             var addressRequest = costumerRequest.address();
-            CostumerAddress address = new CostumerAddress();
-            address.setCep(addressRequest.cep());
-            address.setUf(addressRequest.uf());
-            address.setCity(addressRequest.city());
-            address.setDistrict(addressRequest.district());
-            address.setNumber(addressRequest.number());
-            address.setComplement(addressRequest.complement());
-            address.setStreet(addressRequest.street());
-            costumerAddressRepository.save(address);
+
+            costumer.getAddress().setCep(addressRequest.cep());
+            costumer.getAddress().setUf(addressRequest.uf());
+            costumer.getAddress().setCity(addressRequest.city());
+            costumer.getAddress().setDistrict(addressRequest.district());
+            costumer.getAddress().setNumber(addressRequest.number());
+            costumer.getAddress().setComplement(addressRequest.complement());
+            costumer.getAddress().setStreet(addressRequest.street());
+            costumerAddressRepository.save(costumer.getAddress());
 
             costumer.setCostumerName(costumerRequest.costumerName());
             costumer.setRg(costumerRequest.rg());
             costumer.setCpf(costumerRequest.cpf());
             costumer.setContact(costumerRequest.contact());
             costumer.setBirthday(costumerRequest.birthday());
-            costumer.setAddress(address);
+            costumer.setAddress(costumer.getAddress());
             costumer.setEmail(costumerRequest.email());
             costumer.setRelationship(costumerRequest.relationship());
-            costumer.setUser(user);
             costumerRepository.save(costumer);
 
             return new CostumerResponse("Costumer update successfully");

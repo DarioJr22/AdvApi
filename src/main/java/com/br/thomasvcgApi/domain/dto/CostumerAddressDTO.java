@@ -1,5 +1,6 @@
 package com.br.thomasvcgApi.domain.dto;
 
+import com.br.thomasvcgApi.domain.entity.Costumer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 
@@ -15,4 +16,16 @@ public record CostumerAddressDTO(
              String city,
              String uf
 ) {
+    public CostumerAddressDTO(Costumer costumer) {
+        this(
+                costumer.getAddress().getId(),
+                costumer.getAddress().getStreet(),
+                costumer.getAddress().getDistrict(),
+                costumer.getAddress().getCep(),
+                costumer.getAddress().getNumber(),
+                costumer.getAddress().getComplement(),
+                costumer.getAddress().getCity(),
+                costumer.getAddress().getUf()
+        );
+    }
 }

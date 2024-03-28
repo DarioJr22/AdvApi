@@ -1,6 +1,8 @@
 package com.br.thomasvcgApi.domain.entity;
 
 
+import com.br.thomasvcgApi.domain.dto.CostumerDTO;
+import com.br.thomasvcgApi.rest.request.CostumerRequest;
 import com.br.thomasvcgApi.util.Relationship;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -56,5 +59,19 @@ public class Costumer {
 
     @OneToMany(mappedBy = "costumer")
     private List<Contact> contacts;
+
+    public Costumer(CostumerRequest request) {
+        this.costumerName = request.costumerName();
+        this.relationship = request.relationship();
+        this.email = request.costumerName();
+        this.contact = request.contact();
+        this.birthday = request.birthday();
+        this.rg = request.rg();
+        this.cpf = request.cpf();
+        this.address = new CostumerAddress();
+        this.user = new User();
+        this.statements = new ArrayList<>();
+        this.contacts = new ArrayList<>();
+    }
 
 }

@@ -136,12 +136,9 @@ public class CostumerService {
             costumer.setAddress(costumer.getAddress());
             costumer.setEmail(costumerRequest.email());
             costumer.setRelationship(costumerRequest.relationship());
-<<<<<<< HEAD
+            costumer.setUser(costumer.getUser());
             costumerRepository.save(costumer);
-=======
-            costumer.setUser(user);
             Costumer costumerResp =  costumerRepository.save(costumer);
->>>>>>> 58361cc617e4ee8f463b5899f8146e5b2d5954d6
 
 
 

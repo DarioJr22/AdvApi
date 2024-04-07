@@ -33,7 +33,11 @@ public class ContactService {
     @Value("${spring.mail.username}")
     private String fromEmail;
 
+    @Value("${spring.mail.recipient}")
+    private String toEmail;
+
     public ContactResponse createContact(ContactRequest contactRequest, Long idCostumer){
+
         Costumer costumer = costumerRepository.findById(idCostumer)
                 .orElseThrow(() -> new HandlerEntityNotFoundException("Costumer not found with id" + idCostumer));
         try {
@@ -43,7 +47,7 @@ public class ContactService {
             contact.setCostumer(costumer);
            Contact contactResp = contactRepository.save(contact);
 
-            sendMail.sendHtmlEmail(contact,fromEmail);
+            sendMail.sendHtmlEmail(contact,toEmail);
 
             return new ContactResponse("Contact created successfully");
         }catch (Exception ex){

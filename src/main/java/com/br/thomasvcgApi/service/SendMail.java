@@ -17,6 +17,7 @@ import java.util.Base64;
 @Service
 public class SendMail {
     public static final String NEW_USER_ACCOUNT_VERIFICATION = "New User Account Verification";
+    public static final String NEW_CONTACT_CLIENT = "Um cliente entrou em contato pelo site!";
     public static final String UTF_8_ENCODING = "UTF-8";
     public static final String EMAIL_TEMPLATE = "emailtemplate";
 
@@ -47,7 +48,7 @@ public class SendMail {
             MimeMessage message = getMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);
             helper.setPriority(1);
-            helper.setSubject(NEW_USER_ACCOUNT_VERIFICATION);
+            helper.setSubject(NEW_CONTACT_CLIENT);
             helper.setFrom(fromEmail);
             helper.setTo(to);
             helper.setText(text, true);

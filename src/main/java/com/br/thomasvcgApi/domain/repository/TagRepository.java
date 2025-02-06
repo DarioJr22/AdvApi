@@ -22,7 +22,7 @@ public class TagRepository {
     }
 
     public String createTag(String novaTag){
-        entityManager.createNativeQuery("INSERT INTO post_tags (id_post,tags) values (1,?)").setParameter(1,novaTag).executeUpdate();
+        entityManager.createNativeQuery("INSERT INTO post_tags (id_post,tags) values (2,?)").setParameter(1,novaTag).executeUpdate();
         return novaTag;
     }
 

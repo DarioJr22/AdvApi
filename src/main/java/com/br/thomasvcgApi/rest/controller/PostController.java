@@ -1,5 +1,7 @@
 package com.br.thomasvcgApi.rest.controller;
 
+import com.br.thomasvcgApi.domain.entity.Post;
+import com.br.thomasvcgApi.domain.repository.PostRepository;
 import com.br.thomasvcgApi.rest.request.PostRequest;
 import com.br.thomasvcgApi.rest.request.TagRequest;
 import com.br.thomasvcgApi.rest.response.PostResponse;
@@ -23,6 +25,8 @@ public class PostController {
 
     @Autowired
     private TagService tagService;
+    @Autowired
+    private PostRepository postRepository;
 
     @PostMapping
     public ResponseEntity<PostResponse> createPost(@RequestBody PostRequest request) {
@@ -73,6 +77,14 @@ public class PostController {
         PostResponse response = postService.findByPost(request);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @GetMapping("/{idPost}")
+    public ResponseEntity<Post> findById(@PathVariable Long idPost){
+        Post response = postRepository.findById(idPost).orElseThrow();
+        response.setContent(postService.decodeBase64(response.getContent()));
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @PutMapping(value = "/{idPost}")
     public ResponseEntity<PostResponse> updatePost(@RequestBody PostRequest request,@PathVariable Long idPost) {
         PostResponse response = postService.updatePost(request,idPost);

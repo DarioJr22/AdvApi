@@ -29,10 +29,7 @@ public class PostService {
     private UserRepository userRepository;
 
     public PostResponse createPost(PostRequest postRequest){
-        //TODO - Fazer tratamento de usuário
-
-                //userRepository.findById(postRequest.user().getId())
-                //.orElseThrow(()->new HandlerEntityNotFoundException("User not found with id" + postRequest.user().getId()));
+        //TODO - Fazer tratamento de usuári
         User user = new User();
         Post post = new Post();
         post.setTitle(postRequest.title());
@@ -95,7 +92,7 @@ public class PostService {
         postRepository.delete(post);
         return new PostResponse("Post delete successfully");
     }
-    private String convertBase64(String content){
+    public String convertBase64(String content){
         try {
             byte[] contentBytes = content.getBytes(StandardCharsets.UTF_8);
             byte[] base64Encoded = Base64.getEncoder().encode(contentBytes);
@@ -106,7 +103,7 @@ public class PostService {
 
     }
 
-    private String decodeBase64(String content){
+    public String decodeBase64(String content){
         byte[] decodedBytes = Base64.getDecoder().decode(content);
         return new String(decodedBytes,StandardCharsets.UTF_8);
     }

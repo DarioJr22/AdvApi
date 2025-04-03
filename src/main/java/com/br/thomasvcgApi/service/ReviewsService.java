@@ -10,7 +10,7 @@ public class ReviewsService {
 
     public Object getGoogleProfile(){
         // URL da solicitação
-        String url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJLaOg3Tc9qwcRTemoMuGJ6Rc&fields=reviews&language=pt-BR&key=AIzaSyASuNXEP27EUkWhCHt7UzJVYuy7bc5HxVA";
+        String url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJLaOg3Tc9qwcRTemoMuGJ6Rc&fields=reviews&language=pt-BR&key=AIzaSyCi1vkD3KyBMcanxRMCLCJvYBam67D1hWE";
 
         // Configurar o RestTemplate
         RestTemplate restTemplate = new RestTemplateBuilder().build();

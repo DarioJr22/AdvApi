@@ -1,6 +1,7 @@
 package com.br.thomasvcgApi.rest.controller;
 
 
+import com.br.thomasvcgApi.domain.entity.User;
 import com.br.thomasvcgApi.rest.request.UserRequest;
 import com.br.thomasvcgApi.rest.response.UserResponse;
 import com.br.thomasvcgApi.service.ReviewsService;
@@ -55,5 +56,11 @@ public class UserController {
     public ResponseEntity<Object> getReviews(){
      Object response = revService.getGoogleProfile();
      return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping(value= "/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email ){
+        User userResponse = service.findUserByEmail(email);
+        return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }
 }

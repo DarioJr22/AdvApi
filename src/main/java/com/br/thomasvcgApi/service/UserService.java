@@ -151,4 +151,10 @@ public class UserService {
         }
     }
 
+    public User findUserByEmail(String email){
+        User user = new User();
+        user = userRepository.findUserByEmail(email).orElseThrow();
+        return user;
+    }
+
 }
